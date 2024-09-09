@@ -15,10 +15,10 @@ const createUsers = async (req, res) => {
             return res.status(400).json({ error: 'User already exists' });
         }
 
-        // Hash the password before saving
+        
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user with the hashed password
+        
         const user = new User({ name, email, password: hashedPassword, role });
         await user.save();
 
@@ -27,7 +27,7 @@ const createUsers = async (req, res) => {
         
 
     } catch (error) {
-        console.error("Error in createUsers:", error); // Log the error for debugging
+        console.error("Error in createUsers:", error); 
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ error: 'Invalid email or password' });
 
-        // Compare password
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ error: 'Invalid email or password' });
 
@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
 const getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        console.log('Fetched Users:', users); // Debug log
+        console.log('Fetched Users:', users); 
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });

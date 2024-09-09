@@ -12,15 +12,3 @@ router.get('/getusers',isAuthenticated, isAdmin, getUsers);
 
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-

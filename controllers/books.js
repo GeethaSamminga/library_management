@@ -3,9 +3,9 @@ const Book = require("../models/book");
 // Add a new book
 const addBook = async (req, res) => {
     try {
-        // Validate input
+    
         const { title, author, ISBN, publicationDate, genre, numberOfCopies } = req.body;
-        if (!title || !author || !ISBN || !publicationDate || !numberOfCopies) {
+        if (!title || !author || !ISBN || !publicationDate ||!genre|| !numberOfCopies) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -20,6 +20,7 @@ const addBook = async (req, res) => {
 // Get all books with optional filters
 const getBooks = async (req, res) => {
     try {
+        console.log(req.query)
         const { genre, author } = req.query;
         const filters = {};
         if (genre) filters.genre = genre;
@@ -35,9 +36,9 @@ const getBooks = async (req, res) => {
 // Update a book
 const updateBook = async (req, res) => {
     try {
-        // Validate input
+    
         const { title, author, ISBN, publicationDate, genre, numberOfCopies } = req.body;
-        if (!title || !author || !ISBN || !publicationDate || !numberOfCopies) {
+        if (!title || !author || !ISBN || !publicationDate ||!genre|| !numberOfCopies) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 

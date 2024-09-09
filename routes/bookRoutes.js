@@ -3,9 +3,8 @@ const { addBook, updateBook, deleteBook, getBooks,  } = require('../controllers/
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/add', isAuthenticated, isAdmin, addBook); // Only Admin can add books
-router.put('/update/:id', isAuthenticated, isAdmin, updateBook); // Only Admin can update books
-router.delete('/delete/:id', isAuthenticated, isAdmin, deleteBook); // Only Admin can delete books
-router.get('/getbooks', isAuthenticated, getBooks); // All authenticated users can view books
-
+router.post('/add', isAuthenticated, isAdmin, addBook); 
+router.put('/update/:id', isAuthenticated, isAdmin, updateBook);
+router.delete('/delete/:id', isAuthenticated, isAdmin, deleteBook); 
+router.get('/getbooks', isAuthenticated, getBooks); 
 module.exports = router;
