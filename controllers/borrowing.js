@@ -51,7 +51,10 @@ const returnBook = async (req, res) => {
         book.numberOfCopies += 1;
         await book.save();
 
-        res.json(borrow);
+        res.json({
+           success:true,
+            message:"returned successfully"
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
