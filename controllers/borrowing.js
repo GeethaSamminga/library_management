@@ -62,27 +62,28 @@ const returnBook = async (req, res) => {
 };
 
 // View borrow history
+// View borrow history
 const getBorrowHistory = async (req, res) => {
     try {
-        console.log('Authenticated User:', req.user); 
+        console.log('Authenticated User Globally:', req.user); 
         
-       
         const history = await Borrow.find({ user: req.user._id }).populate('book');
+        console.log('Borrow History Globally:', history); // Add debug log
 
-        
-        const formattedHistory = history.map(record => ({
-            user: {
-                _id: record.user._id,
-                username: req.user.username 
-            },
-            book: {
-                _id: record.book._id,
-                title: record.book.title,
-                author: record.book.author
-            }
-        }));
+        const formattedHistory = history
+            .filter(record => record.user && record.book) // Filter out incomplete records
+            .map(record => ({
+                user: {
+                    _id: record.user._id,
+                    username: req.user.username 
+                },
+                book: {
+                    _id: record.book._id,
+                    title: record.book.title,
+                    author: record.book.author
+                }
+            }));
 
-    
         res.json({
             borrowCount: formattedHistory.length,
             history: formattedHistory
@@ -91,6 +92,7 @@ const getBorrowHistory = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 module.exports = {
