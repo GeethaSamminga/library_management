@@ -53,7 +53,7 @@ const returnBook = async (req, res) => {
 
         res.json({
            success:true,
-            message:"returned successfully"
+            message:"book returned successfully"
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -64,8 +64,28 @@ const returnBook = async (req, res) => {
 const getBorrowHistory = async (req, res) => {
     try {
         console.log('Authenticated User:', req.user); 
+        
+       
         const history = await Borrow.find({ user: req.user._id }).populate('book');
-        res.json(history);
+
+        
+        const formattedHistory = history.map(record => ({
+            user: {
+                _id: record.user._id,
+                username: req.user.username 
+            },
+            book: {
+                _id: record.book._id,
+                title: record.book.title,
+                author: record.book.author
+            }
+        }));
+
+    
+        res.json({
+            borrowCount: formattedHistory.length,
+            history: formattedHistory
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

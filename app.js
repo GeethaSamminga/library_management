@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRouter');
 const bookRoutes = require('./routes/bookRoutes');
 const borrwRoutes = require('./routes/borrowingRoutes');
+const reportRoutes=require('./routes/reportRoute')
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/borrow',borrwRoutes);
+app.use('/api/report',reportRoutes)
 
 
 

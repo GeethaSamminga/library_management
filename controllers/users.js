@@ -10,9 +10,13 @@ const createUsers = async (req, res) => {
         const { name, email, password, role } = req.body;
 
         
+        if (!name || !email || !password || !role) {
+            return res.status(400).json({ error: 'All fields (name, email, password, role) are required' });
+        }
+        
         let existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ error: 'User already exists' });
+            return res.status(400).json({ error: 'Email already exists' });
         }
 
         
@@ -54,13 +58,14 @@ const loginUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
-        console.log('Fetched Users:', users); 
+        const users = await User.find().select('-__v');
+        console.log('Fetched Users:', users);
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 module.exports = {
