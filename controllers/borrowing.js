@@ -6,11 +6,10 @@ const Borrow = require("../models/borrow");
 const borrowBook = async (req, res) => {
     try {
         const { bookId } = req.body;
-         console.log(req.body.bookId)
+        console.log(req.body.bookId);
 
         const book = await Book.findById(bookId);
 
-    
         if (!book) {
             return res.status(404).json({ error: 'Book not found' });
         }
@@ -24,18 +23,20 @@ const borrowBook = async (req, res) => {
             user: req.user._id,
             book: bookId
         });
-        
+
         book.numberOfCopies -= 1;
         await book.save();
         await borrow.save();
 
-        
-        res.status(201).json(borrow);
+        const borrowWithoutVersion = await Borrow.findById(borrow._id).select('-__v');
+
+        res.status(201).json(borrowWithoutVersion);
     } catch (error) {
-        console.error('Error borrowing book:', error.message); 
+        console.error('Error borrowing book:', error.message);
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // Return a book
 const returnBook = async (req, res) => {

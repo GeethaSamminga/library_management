@@ -5,7 +5,7 @@ const addBook = async (req, res) => {
     try {
         const { title, author, ISBN, publicationDate, genre, numberOfCopies } = req.body;
         
-        // Check if all required fields are provided
+        
         if (!title || !author || !ISBN || !publicationDate || !genre || !numberOfCopies) {
             return res.status(400).json({ error: 'Fields (title, author, ISBN, publicationDate, genre, numberOfCopies) are required' });
         }
@@ -54,19 +54,22 @@ const getBooks = async (req, res) => {
 // Update a book
 const updateBook = async (req, res) => {
     try {
-    
         const { title, author, ISBN, publicationDate, genre, numberOfCopies } = req.body;
-        if (!title || !author || !ISBN || !publicationDate ||!genre|| !numberOfCopies) {
-            return res.status(400).json({ error: 'Missing required fields' });
+        
+        if (!title || !author || !ISBN || !publicationDate || !genre || !numberOfCopies) {
+            return res.status(400).json({ error: 'Fields (title, author, ISBN, publicationDate, genre, numberOfCopies) are required' });
         }
-
-        const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true })
+            .select('-createdAt -updatedAt -__v'); 
+        
         if (!book) return res.status(404).json({ error: 'Book not found' });
+
         res.json(book);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
+
 
 // Delete a book
 const deleteBook = async (req, res) => {
