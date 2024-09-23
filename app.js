@@ -5,6 +5,8 @@ const userRoutes = require('./routes/userRouter');
 const bookRoutes = require('./routes/bookRoutes');
 const borrwRoutes = require('./routes/borrowingRoutes');
 const reportRoutes=require('./routes/reportRoute')
+const cors = require('cors');  // Import cors
+
 
 const app = express();
 
