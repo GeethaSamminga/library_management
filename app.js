@@ -12,8 +12,8 @@ const app = express();
 
 dotenv.config();
 app.use(cors({
-    origin: '*', // Allow all origins, or you can restrict it to specific domains
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
     credentials: true // If you want to allow credentials like cookies
 }));
 
