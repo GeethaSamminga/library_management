@@ -61,17 +61,17 @@ const returnBook = async (req, res) => {
     }
 };
 
-// View borrow history
+
 // View borrow history
 const getBorrowHistory = async (req, res) => {
     try {
         console.log('Authenticated User Globally:', req.user); 
         
         const history = await Borrow.find({ user: req.user._id }).populate('book');
-        console.log('Borrow History Globally:', history); // Add debug log
+        console.log('Borrow History Globally:', history); 
 
         const formattedHistory = history
-            .filter(record => record.user && record.book) // Filter out incomplete records
+            .filter(record => record.user && record.book) 
             .map(record => ({
                 user: {
                     _id: record.user._id,

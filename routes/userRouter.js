@@ -6,8 +6,6 @@ const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 router.post('/register', createUsers); 
 router.post('/login', loginUser,); 
-
-
 router.get('/getusers',isAuthenticated, isAdmin, getUsers); 
 
 

@@ -10,6 +10,7 @@ const getMostBorrowedBooks = async (req, res) => {
             {
                 $group: {
                     _id: "$book",
+                    // to tell the mongodb to include -0 -exclude 
                     borrowCount: { $sum: 1 }
                 }
             },
@@ -27,6 +28,7 @@ const getMostBorrowedBooks = async (req, res) => {
                     as: "bookDetails"
                 }
             },
+            // convrt array into single object
             {
                 $unwind: "$bookDetails"
             },

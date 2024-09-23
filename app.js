@@ -9,7 +9,11 @@ const reportRoutes=require('./routes/reportRoute')
 const app = express();
 
 dotenv.config();
-
+app.use(cors({
+    origin: '*', // Allow all origins, or you can restrict it to specific domains
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
+    credentials: true // If you want to allow credentials like cookies
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
