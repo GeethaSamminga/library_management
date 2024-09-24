@@ -5,14 +5,14 @@ const cors = require('cors');
 
 dotenv.config({ path: "./data/config.env" });
 
-// Connect to the database
+
 connectDB();
 
 // Enable CORS
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL if needed
+    origin: 'http://localhost:5173', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, // If handling credentials
+    credentials: true, 
 }));
 
 app.listen(process.env.PORT, () => {
